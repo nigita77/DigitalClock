@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DigitalClock</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #2c3e50;
+      }
+
+      .time {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+        box-shadow: 3px 3px 9px #542682, -3px -3px 9px #8048b8;
+      }
+
+      .hours,
+      .minutes,
+      .seconds,
+      .amorpm {
+        width: 4em;
+        height: 4em;
+        background-color: #2c3e50;
+        padding: 1em;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #hours,
+      #minutes,
+      #seconds {
+        font-family: "Orbitron", sans-serif;
+        letter-spacing: 4px;
+        font-size: 2em;
+        color: white;
+      }
+
+      .colon,
+      #amorpm {
+        font-size: 2em;
+        color: white;
+      }
+
+      .date {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-top: 1.5rem;
+        font-family: "Orbitron", sans-serif;
+        color: white;
+      }
+
+      .full-date,
+      .full-date div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+      .full-date {
+        font-size: 1.5em;
+        margin-right: 2rem;
+      }
+      .full-date div {
+        flex-direction: column;
+        margin-right: 1rem;
+      }
+      .day {
+        font-size: 1rem;
+      }
+      .label {
+        margin-top: 0.4rem;
+        font-family: sans-serif;
+        font-size: 0.7rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="time">
+        <div class="box hours">
+          <h1 id="hours">8</h1>
+        </div>
+        <div class="colon">:</div>
+
+        <div class="box minutes">
+          <h1 id="minutes">8</h1>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="box seconds">
+          <h1 id="seconds">8</h1>
+        </div>
+
+        <div class="box amorpm">
+          <h1 id="amorpm">8</h1>
+        </div>
+      </div>
+      <div class="date">
+        <div class="full-date">
+          <div>
+            <div id="month">00</div>
+            <div class="label">month</div>
+          </div>
+          <div>
+            <div id="day">00</div>
+            <div class="label">day</div>
+          </div>
+          <div>
+            <div id="year">0000</div>
+            <div class="label">year</div>
+          </div>
+        </div>
+        <div class="day" id="day_name">null</div>
+      </div>
+    </div>
+
+    <script>
+      let getDayInWeek = (day) => {
+        if (day == 0) return "Sun";
+        if (day == 1) return "Mon";
+        if (day == 2) return "Tue";
+        if (day == 3) return "Wed";
+        if (day == 4) return "Thu";
+        if (day == 5) return "Fri";
+        if (day == 6) return "Sat";
+      };
+
+      let digitalClock = () => {
+        let date = new Date();
+
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let day_name = getDayInWeek(date.getDay());
+
+        let amorpm = hours >= 12 ? "pm" : "am";
+        if (minutes < 10) minutes = "0" + minutes;
+        if (seconds < 10) seconds = "0" + seconds;
+
+        
+        document.getElementById("hours").innerHTML = hours;
+        document.getElementById("minutes").innerHTML = minutes;
+        document.getElementById("seconds").innerHTML = seconds;
+        document.getElementById("amorpm").innerHTML = amorpm;
+        document.getElementById("month").innerHTML = month;
+        document.getElementById("day").innerHTML = day;
+        document.getElementById("year").innerHTML = year;
+        document.getElementById("day_name").innerHTML = day_name;
+
+        setTimeout(digitalClock, 500);
+      };
+
+      digitalClock();
+    </script>
+  </body>
+</html>
